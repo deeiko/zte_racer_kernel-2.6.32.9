@@ -4,11 +4,15 @@ was missing from that repo and also the correct config file, both and
 other changes were added in this repo.
 
 This sources should allow you to correctly compile a kernel that boots,
-everything works (there are some issues with compass on android 2.3 roms) 
-and calibration needs rework.
+everything works (there are some issues with compass on android 2.3 roms).
 
-To compile:
+Calibration needs improvements.
 
+Prepare the sources:
 make ARCH=arm CROSS_COMPILE=$YOUR_ARM_EABI_CC msm7627_zte_mooncake_defconfig
 
+Select your correct generation (System type -> MSM Board Selection -> ZTE Mooncake GEN) with:
+make ARCH=arm CROSS_COMPILE=$YOUR_ARM_EABI_CC menuconfig
+
+Compile:
 make ARCH=arm CROSS_COMPILE=$YOUR_ARM_EABI_CC -j$(grep 'processor' /proc/cpuinfo|wc -l)
