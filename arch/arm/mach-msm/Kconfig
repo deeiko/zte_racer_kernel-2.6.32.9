@@ -143,7 +143,7 @@ config ZTE_PLATFORM
 	bool "ZTE Platform"	
 	default y
 	help
-	  Global macro for ZTE code	  
+	  Global macro for ZTE code
 	  
 config F3_LOG
         depends on ARCH_MSM
@@ -161,6 +161,30 @@ config MACH_MOONCAKE
         select ZTE_PLATFORM
         help
           Support for the ZTE mooncake board.
+
+choice 	
+	prompt "ZTE Mooncake GEN"
+	default ZTE_MOONCAKE_GEN1
+
+config ZTE_MOONCAKE_GEN1
+	bool "ZTE Mooncake Generation 1"
+	depends on MACH_MOONCAKE
+	help
+	  Select this if the kernel is to be compiled for a Generation 1 
+	  phone.
+
+config ZTE_MOONCAKE_GEN2
+	bool "ZTE Mooncake Generation 2"
+	depends on MACH_MOONCAKE
+	help
+	  Select this if the kernel is to be compiled for a Generation 2
+	  phone.
+endchoice
+
+config PHYS_OFFSET
+	hex
+	default "0x02A00000" if ZTE_MOONCAKE_GEN1
+	default "0x02600000" if ZTE_MOONCAKE_GEN2
 
 config MACH_BLADE
 	depends on ARCH_MSM7X27
@@ -364,25 +388,6 @@ config MSM_STACKED_MEMORY
 	  This option is used to indicate the presence of on-die stacked
 	  memory.  When present this memory bank is used for a high speed
 	  shared memory interface.  When not present regular RAM is used.
-
-config ZTE_BLADE_GEN2
-	bool "ZTE Blade Generation 2"
-	default n
-	help
-	  This option is used to indicate if the kernel is to be compiled
-	  for a ZTE Blade Generation 2 (phone that is sold with Android 2.2
-	  and loads the kernel to 0x02600000.)
-
-#ZTE_BOOT_HUANGYANJUN_20100903_01 0x2A00000 ->0x02600000
-config PHYS_OFFSET
-	hex
-	default "0x02600000" if ZTE_BLADE_GEN2
-	default "0x02A00000" if !ZTE_BLADE_GEN2
-#	default "0x02A00000" if !MSM_STACKED_MEMORY
-#	default "0x00000000" if ARCH_QSD8X50 && MSM_SOC_REV_A
-#	default "0x20000000" if ARCH_QSD8X50
-#	default "0x40200000" if ARCH_MSM8X60
-	default "0x10000000"
 
 config KERNEL_PMEM_EBI_REGION
 	bool "Enable in-kernel PMEM region for EBI"
