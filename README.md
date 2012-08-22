@@ -11,4 +11,4 @@ To compile:
 
 make ARCH=arm CROSS_COMPILE=$YOUR_ARM_EABI_CC msm7627_zte_mooncake_defconfig
 
-make ARCH=arm CROSS_COMPILE=$YOUR_ARM_EABI_CC -j`grep 'processor' /proc/cpuinfo|wc -l`
+make ARCH=arm CROSS_COMPILE=$YOUR_ARM_EABI_CC -j$(grep 'processor' /proc/cpuinfo|wc -l)
